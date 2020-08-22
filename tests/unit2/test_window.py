@@ -1,7 +1,8 @@
 import numpy as np
+import pytest
 
 
-def test_window():
+def test_window(twm):
     import arcade
     width = 800
     height = 600
@@ -14,8 +15,9 @@ def test_window():
     assert w is not None
 
     # Make sure the arguments get passed to the window
-    assert w.width == width
-    assert w.height == height
+    if not twm:
+        assert w.width == width
+        assert w.height == height
     assert w.caption == title
     assert w.resizeable is resizable
     assert w.current_view is None
@@ -31,11 +33,13 @@ def test_window():
     assert isinstance(p, np.ndarray)
 
     v = arcade.get_viewport()
-    assert v[0] == 0
-    # The lines below fail. Why?
-    assert v[1] == width - 1
-    assert v[2] == 0
-    assert v[3] == height - 1
+
+    if not twm:
+        assert v[0] == 0
+        # The lines below fail. Why?
+        assert v[1] == width - 1
+        assert v[2] == 0
+        assert v[3] == height - 1
 
     factor = arcade.get_scaling_factor()
     assert factor > 0
