@@ -15,9 +15,8 @@ def test_window(twm):
     assert w is not None
 
     # Make sure the arguments get passed to the window
-    if not twm:
-        assert w.width == width
-        assert w.height == height
+    assert w.width == width
+    assert w.height == height
     assert w.caption == title
     assert w.resizeable is resizable
     assert w.current_view is None
@@ -34,12 +33,11 @@ def test_window(twm):
 
     v = arcade.get_viewport()
 
-    if not twm:
-        assert v[0] == 0
-        # The lines below fail. Why?
-        assert v[1] == width - 1
-        assert v[2] == 0
-        assert v[3] == height - 1
+    assert v[0] == 0
+    # The lines below fail. Why?
+    assert v[1] == width - 1
+    assert v[2] == 0
+    assert v[3] == height - 1
 
     factor = arcade.get_scaling_factor()
     assert factor > 0
